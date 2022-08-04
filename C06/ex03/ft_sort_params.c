@@ -5,43 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: msaber <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 18:43:37 by msaber            #+#    #+#             */
-/*   Updated: 2022/08/04 19:07:47 by msaber           ###   ########.fr       */
+/*   Created: 2022/08/04 21:53:58 by msaber            #+#    #+#             */
+/*   Updated: 2022/08/04 22:05:03 by msaber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include<unistd.h>
-int	main(int argc, char **argv)
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+int	ft_strlen(char *s)
 {
 	int	i;
-	int	j;
-	char *str;
 
 	i = 0;
-	while (i < argc)
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	print_tab(int ac, char **av)
+{
+	int	i;
+
+	i = 1;
+	while (i < ac)
+	{
+		write(1, av[i], ft_strlen(av[i]));
+		write(1, "\n", 1);
+		i++;
+	}
+}
+
+int	main(int ac, char **av)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 1;
+	while (i < ac - 1)
 	{
 		j = i + 1;
-		while (j < argc)
+		while (j < ac)
 		{
-			if (argv[i][0] > argv[j][0])
+			if (ft_strcmp(av[j], av[i]) < 0)
 			{
-				str = argv[i];
-				argv[i] = argv[j];
-				argv[j] = str;
+				tmp = av[i];
+				av[i] = av[j];
+				av[j] = tmp;
 			}
 			j++;
 		}
 		i++;
 	}
-	i = 0;
-	while (i < argc)
-		{
-			j = 0;
-			while (argv[i][j] != '\0')
-			{
-				write(1, &argv[i][j], 1);
-				j++;
-			}
-			write(1, "\n", 1);
-			i++;
-		}
+	print_tab(ac, av);
+	return (0);
 }
