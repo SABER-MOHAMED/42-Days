@@ -6,14 +6,17 @@
 /*   By: msaber <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 09:58:22 by msaber            #+#    #+#             */
-/*   Updated: 2022/08/07 09:30:43 by msaber           ###   ########.fr       */
+/*   Updated: 2022/08/07 10:21:49 by msaber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 int	ft_num_is_prime(int nb)
 {
-	int i;
-	if (nb <= 2)
+	int	i;
+
+	if (nb < 0)
 		return (0);
+	if (nb <= 2 && nb > 0)
+		return (2);
 	if (nb >= 2147483630 && nb <= 2147483647)
 		return (2147483647);
 	i = 2;
@@ -25,7 +28,8 @@ int	ft_num_is_prime(int nb)
 	}
 	return (1);
 }
-int ft_find_next_prime(int nb)
+
+int	ft_find_next_prime(int nb)
 {
 	while (! ft_num_is_prime(nb))
 		nb++;
